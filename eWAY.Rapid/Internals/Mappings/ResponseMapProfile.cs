@@ -17,6 +17,9 @@ namespace eWAY.Rapid.Internals.Mappings {
             CreateMap<BaseResponse, Rapid.Models.BaseResponse>(MemberList.Destination)
                 .ForMember(dest => dest.Errors, opt => opt.MapFrom(src => string.IsNullOrWhiteSpace(src.Errors) ? null : src.Errors.Split(',').ToList()));
 
+            CreateMap<Rapid.Models.BaseResponse, BaseResponse>( MemberList.Destination )
+                .ForMember( dest => dest.Errors, opt => opt.MapFrom( src => src.Errors.Any() ? string.Join( ",", src.Errors ) : null ) );
+
             CreateMap<DirectPaymentResponse, CreateTransactionResponse>(MemberList.Destination)
                 .IncludeBase<BaseResponse, Rapid.Models.BaseResponse>()
                 .ForMember(dest => dest.Transaction, opt => opt.MapFrom(src => src))

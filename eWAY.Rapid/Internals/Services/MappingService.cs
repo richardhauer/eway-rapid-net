@@ -25,10 +25,10 @@ namespace eWAY.Rapid.Internals.Services
         static MappingService()
         {
             config = new MapperConfiguration(c => {
+                c.AddProfile<ResponseMapProfile>();
                 c.AddProfile<CustomMapProfile>();
                 c.AddProfile<EntitiesMapProfile>();
                 c.AddProfile<RequestMapProfile>();
-                c.AddProfile<ResponseMapProfile>();
             });
         }
 
@@ -41,6 +41,6 @@ namespace eWAY.Rapid.Internals.Services
             return config.CreateMapper().Map<TSource, TDest>(obj);
         }
 
-     
+
     }
 }
